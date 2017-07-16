@@ -5,7 +5,6 @@ namespace PhaserArray.XPForKills
 	public class XPForKillsConfiguration : IRocketPluginConfiguration
 	{
 		public int KillXP;
-		public float DefaultModifier;
 		public float HeadModifier;
 		public float TorsoModifier;
 		public float ArmModifier;
@@ -19,7 +18,6 @@ namespace PhaserArray.XPForKills
 		public void LoadDefaults()
 		{
 			KillXP = 50;
-			DefaultModifier = 1.0f;
 			HeadModifier = 1.5f;
 			TorsoModifier = 1.0f;
 			ArmModifier = 0.75f;

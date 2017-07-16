@@ -144,7 +144,7 @@ namespace PhaserArray.XPForKills
 				case ELimb.SKULL:
 					return Config.HeadModifier;
 				default:
-					return Config.DefaultModifier;
+					return Config.TorsoModifier;
 			}
 		}
 
