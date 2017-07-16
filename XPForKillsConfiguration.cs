@@ -27,8 +27,8 @@ namespace PhaserArray.XPForKills
 
 			CheckSteamGroupTeamkill = true;
 			TeamkillXP = -500;
-			SuicideXP = -25;
-			DeathXP = -10;
+			SuicideXP = -50;
+			DeathXP = -25;
 		}
 	}
 }
