@@ -19,7 +19,7 @@ namespace PhaserArray.XPForKills
 
 		public void LoadDefaults()
 		{
-			KillXP = 30;
+			KillXP = 50;
 			DefaultModifier = 1.0f;
 			HeadModifier = 1.5f;
 			TorsoModifier = 1.0f;
@@ -27,12 +27,9 @@ namespace PhaserArray.XPForKills
 			LegModifier = 0.5f;
 
 			CheckSteamGroupTeamkill = true;
-			TeamkillXP = -100;
+			TeamkillXP = -500;
 			SuicideXP = -25;
 			DeathXP = -10;
 		}
-
-
-		
 	}
 }
