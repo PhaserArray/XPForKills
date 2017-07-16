@@ -7,7 +7,6 @@ using SDG.Unturned;
 using UnityEngine;
 using System;
 
-
 namespace PhaserArray.XPForKills
 {
 	public class XPForKills : RocketPlugin<XPForKillsConfiguration>
