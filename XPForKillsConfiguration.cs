@@ -10,7 +10,6 @@ namespace PhaserArray.XPForKills
 		public float TorsoModifier;
 		public float ArmModifier;
 		public float LegModifier;
-		
 
 		public bool CheckSteamGroupTeamkill;
 		public int TeamkillXP;
