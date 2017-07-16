@@ -11,8 +11,8 @@ namespace PhaserArray.XPForKills
 {
 	public class XPForKills : RocketPlugin<XPForKillsConfiguration>
 	{
-		public static XPForKills Instance;
-		public static XPForKillsConfiguration Config;
+		private static XPForKills Instance;
+		private static XPForKillsConfiguration Config;
 
 		protected override void Load()
 		{
@@ -115,33 +115,33 @@ namespace PhaserArray.XPForKills
 			// limbs are actually used.
 			switch (limb)
 			{
-				case SDG.Unturned.ELimb.LEFT_FOOT:
+				case ELimb.LEFT_FOOT:
 					return Config.LegModifier;
-				case SDG.Unturned.ELimb.LEFT_LEG:
+				case ELimb.LEFT_LEG:
 					return Config.LegModifier;
-				case SDG.Unturned.ELimb.RIGHT_FOOT:
+				case ELimb.RIGHT_FOOT:
 					return Config.LegModifier;
-				case SDG.Unturned.ELimb.RIGHT_LEG:
+				case ELimb.RIGHT_LEG:
 					return Config.LegModifier;
-				case SDG.Unturned.ELimb.LEFT_HAND:
+				case ELimb.LEFT_HAND:
 					return Config.ArmModifier;
-				case SDG.Unturned.ELimb.LEFT_ARM:
+				case ELimb.LEFT_ARM:
 					return Config.ArmModifier;
-				case SDG.Unturned.ELimb.RIGHT_HAND:
+				case ELimb.RIGHT_HAND:
 					return Config.ArmModifier;
-				case SDG.Unturned.ELimb.RIGHT_ARM:
+				case ELimb.RIGHT_ARM:
 					return Config.ArmModifier;
-				case SDG.Unturned.ELimb.LEFT_BACK:
+				case ELimb.LEFT_BACK:
 					return Config.TorsoModifier;
-				case SDG.Unturned.ELimb.RIGHT_BACK:
+				case ELimb.RIGHT_BACK:
 					return Config.TorsoModifier;
-				case SDG.Unturned.ELimb.LEFT_FRONT:
+				case ELimb.LEFT_FRONT:
 					return Config.TorsoModifier;
-				case SDG.Unturned.ELimb.RIGHT_FRONT:
+				case ELimb.RIGHT_FRONT:
 					return Config.TorsoModifier;
-				case SDG.Unturned.ELimb.SPINE:
+				case ELimb.SPINE:
 					return Config.TorsoModifier;
-				case SDG.Unturned.ELimb.SKULL:
+				case ELimb.SKULL:
 					return Config.HeadModifier;
 				default:
 					return Config.DefaultModifier;
