@@ -34,7 +34,7 @@ namespace PhaserArray.XPForKills
 					if (murderer.Player != null)
 					{
 						// Teamkilling
-						if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murdererID))
+						if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
 						{
 							TeamkillPenalty(murderer);
 						}
