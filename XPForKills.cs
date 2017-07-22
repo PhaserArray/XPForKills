@@ -65,7 +65,8 @@ namespace PhaserArray.XPForKills
 			var killReward = (int)(Config.KillXP * limbModifier);
 			if (killReward != 0)
 			{
-				UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, ChangeExperience(murderer, killReward)));
+				var realXP = ChangeExperience(murderer, killReward);
+				UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, realXP));
 			}
 		}
 
@@ -77,7 +78,8 @@ namespace PhaserArray.XPForKills
 		{
 			if (Config.DeathXP != 0)
 			{
-				UnturnedChat.Say(player, Instance.Translate("experience_death_penalty", Math.Abs(ChangeExperience(player, Config.DeathXP))));
+				var realXP = ChangeExperience(player, Config.DeathXP);
+				UnturnedChat.Say(player, Instance.Translate("experience_death_penalty", -realXP));
 			}
 		}
 
@@ -85,7 +87,8 @@ namespace PhaserArray.XPForKills
 		{
 			if (Config.SuicideXP != 0)
 			{
-				UnturnedChat.Say(player, Instance.Translate("experience_suicide_penalty", Math.Abs(ChangeExperience(player, Config.SuicideXP))));
+				var realXP = ChangeExperience(player, Config.SuicideXP);
+				UnturnedChat.Say(player, Instance.Translate("experience_suicide_penalty", -realXP));
 			}
 		}
 
@@ -93,7 +96,8 @@ namespace PhaserArray.XPForKills
 		{
 			if (Config.TeamkillXP != 0)
 			{
-				UnturnedChat.Say(player, Instance.Translate("experience_teamkill_penalty", Math.Abs(ChangeExperience(player, Config.TeamkillXP))));
+				var realXP = ChangeExperience(player, Config.TeamkillXP);
+				UnturnedChat.Say(player, Instance.Translate("experience_teamkill_penalty", -realXP));
 			}
 		}
 
