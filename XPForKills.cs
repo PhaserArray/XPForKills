@@ -116,7 +116,7 @@ namespace PhaserArray.XPForKills
 			// instead, hopefully it works better.
 			long exp = player.Experience + change;
 			player.Experience = (exp < uint.MinValue) ? uint.MinValue : (exp > uint.MaxValue) ? uint.MaxValue : (uint)exp;
-			return (int)(- exp + change + player.Experience);
+			return (int)(change + player.Experience - exp);
 		}
 
 		public float GetLimbModifier(ELimb limb)
