@@ -64,8 +64,11 @@ namespace PhaserArray.XPForKills
 		{
 			var limbModifier = GetLimbModifier(limb);
 			var experience = (int)(Config.KillXP * limbModifier);
-			UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, experience));
-			ChangeExperience(murderer, experience);
+			if (experience != 0)
+			{
+				UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, experience));
+				ChangeExperience(murderer, experience);
+			}
 		}
 
 		private void DeathPenalty(UnturnedPlayer player)
