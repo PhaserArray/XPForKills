@@ -4,7 +4,6 @@ using Rocket.Unturned.Player;
 using Rocket.Unturned.Chat;
 using Rocket.Core.Plugins;
 using SDG.Unturned;
-using UnityEngine;
 using System;
 
 namespace PhaserArray.XPForKills
@@ -63,20 +62,22 @@ namespace PhaserArray.XPForKills
 		private void KillReward(UnturnedPlayer murderer, UnturnedPlayer victim, ELimb limb)
 		{
 			var limbModifier = GetLimbModifier(limb);
-			var experience = (int)(Config.KillXP * limbModifier);
-			if (experience != 0)
+			var killReward = (int)(Config.KillXP * limbModifier);
+			if (killReward != 0)
 			{
-				UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, experience));
-				ChangeExperience(murderer, experience);
+				UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, ChangeExperience(murderer, killReward)));
 			}
 		}
 
+		// TODO: The penalty functions are very similar to each other,
+		// I should try to collapse them into a single function in the
+		// future.
+
 		private void DeathPenalty(UnturnedPlayer player)
 		{
-			if(Config.DeathXP != 0)
+			if (Config.DeathXP != 0)
 			{
-				UnturnedChat.Say(player, Instance.Translate("experience_death_penalty", Mathf.Abs(Config.DeathXP)));
-				ChangeExperience(player, Config.DeathXP);
+				UnturnedChat.Say(player, Instance.Translate("experience_death_penalty", Math.Abs(ChangeExperience(player, Config.DeathXP))));
 			}
 		}
 
@@ -84,8 +85,7 @@ namespace PhaserArray.XPForKills
 		{
 			if (Config.SuicideXP != 0)
 			{
-				UnturnedChat.Say(player, Instance.Translate("experience_suicide_penalty", Mathf.Abs(Config.SuicideXP)));
-				ChangeExperience(player, Config.SuicideXP);
+				UnturnedChat.Say(player, Instance.Translate("experience_suicide_penalty", Math.Abs(ChangeExperience(player, Config.SuicideXP))));
 			}
 		}
 
@@ -93,8 +93,7 @@ namespace PhaserArray.XPForKills
 		{
 			if (Config.TeamkillXP != 0)
 			{
-				UnturnedChat.Say(player, Instance.Translate("experience_teamkill_penalty", Mathf.Abs(Config.TeamkillXP)));
-				ChangeExperience(player, Config.TeamkillXP);
+				UnturnedChat.Say(player, Instance.Translate("experience_teamkill_penalty", Math.Abs(ChangeExperience(player, Config.TeamkillXP))));
 			}
 		}
 
@@ -104,10 +103,16 @@ namespace PhaserArray.XPForKills
 			Console.WriteLine("[XPForKills]: " + message);
 		}
 
-		public void ChangeExperience(UnturnedPlayer player, int change)
+		// Returns the change that was actually made.
+		public int ChangeExperience(UnturnedPlayer player, int change)
 		{
-			// The clamp should make sure that experience can't under- or overflow.
-			player.Experience = (uint)Mathf.Clamp(player.Experience + change, uint.MinValue, uint.MaxValue);
+			// Unity's Mathf.Clamp had some precision issues
+			// with larger number (mostly in the hundreds of
+			// millions or even billions), I'm gonna use this
+			// instead, hopefully it works better.
+			long exp = player.Experience + change;
+			player.Experience = (exp < uint.MinValue) ? uint.MinValue : (exp > uint.MaxValue) ? uint.MaxValue : (uint)exp;
+			return (int)(- exp + change + player.Experience);
 		}
 
 		public float GetLimbModifier(ELimb limb)
