@@ -3,8 +3,8 @@ using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using Rocket.Unturned.Chat;
 using Rocket.Core.Plugins;
+using Rocket.Core.Logging;
 using SDG.Unturned;
-using System;
 
 namespace PhaserArray.XPForKills
 {
@@ -18,7 +18,7 @@ namespace PhaserArray.XPForKills
 			Instance = this;
 			Config = Instance.Configuration.Instance;
 			UnturnedPlayerEvents.OnPlayerDeath += OnPlayerDeath;
-			Log("Plugin Loaded");
+			Logger.Log("Plugin Loaded");
 		}
 
 		public void OnPlayerDeath(UnturnedPlayer player, EDeathCause deathCause, ELimb limb, Steamworks.CSteamID murdererID)
@@ -99,12 +99,6 @@ namespace PhaserArray.XPForKills
 				var realXP = ChangeExperience(player, Config.TeamkillXP);
 				UnturnedChat.Say(player, Instance.Translate("experience_teamkill_penalty", -realXP));
 			}
-		}
-
-		// If I expand this plugin, a separate logger class would be nice.
-		private void Log(string message)
-		{
-			Console.WriteLine("[XPForKills]: " + message);
 		}
 
 		// Returns the change that was actually made.
