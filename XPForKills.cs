@@ -21,6 +21,12 @@ namespace PhaserArray.XPForKills
 			Logger.Log("Plugin Loaded");
 		}
 
+		protected override void Unload()
+		{
+			UnturnedPlayerEvents.OnPlayerDeath -= OnPlayerDeath;
+			Logger.Log("Plugin Unloaded");
+		}
+
 		public void OnPlayerDeath(UnturnedPlayer player, EDeathCause deathCause, ELimb limb, Steamworks.CSteamID murdererID)
 		{
 			// From observations, ID is only invalid if the player was killed by an admin command.
