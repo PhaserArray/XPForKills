@@ -14,7 +14,9 @@ namespace PhaserArray.XPForKills
 		public int TeamkillXP;
 		public int SuicideXP;
 		public int DeathXP;
-
+        public int DrownXP;
+        public int ZombieXP;
+        public int FireXP;
 		public void LoadDefaults()
 		{
 			KillXP = 50;
@@ -27,6 +29,9 @@ namespace PhaserArray.XPForKills
 			TeamkillXP = -500;
 			SuicideXP = -50;
 			DeathXP = -25;
-		}
+            DrownXP = -1000;
+            ZombieXP = -2000;
+            FireXP = -2000;
+        }
 	}
 }
