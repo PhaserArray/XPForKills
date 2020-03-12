@@ -206,9 +206,9 @@ namespace PhaserArray.XPForKills
 					{"experience_kill_reward", "You killed {0} and gained {1} experience!"},
 					{"experience_death_penalty", "You died and lost {0} experience!"},
 					{"experience_suicide_penalty", "You killed yourself and lost {0} experience!"},
-					{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"}
-                    {"experience_drown_penalty", "You breathed water and lost {0} experience!"}
-                    { "experience_fire_penalty", "You got roasted and lost {0} experience!"}
+					{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"},
+                    {"experience_drown_penalty", "You breathed water and lost {0} experience!"},
+                    { "experience_fire_penalty", "You got roasted and lost {0} experience!"},
                 };
 			}
 		}

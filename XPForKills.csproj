@@ -60,6 +60,10 @@
       <HintPath>..\packages\Rocket.Core.2.4.8.0\lib\net35\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>F:\suttf\Stean\steamapps\common\Unturned\Unturned_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="XPForKills.cs" />
@@ -68,6 +72,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assembly-CSharp-firstpass.dll" />
+    <Content Include="Assembly-CSharp.dll" />
+    <Content Include="Rocket.API.dll" />
+    <Content Include="Rocket.Core.dll" />
+    <Content Include="Rocket.Unturned.dll" />
+    <Content Include="UnityEngine.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
