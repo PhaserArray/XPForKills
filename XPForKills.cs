@@ -77,6 +77,8 @@ namespace PhaserArray.XPForKills
 				}
 			}
 		}
+        
+
 		
 		private void KillReward(UnturnedPlayer murderer, UnturnedPlayer victim, ELimb limb)
 		{
