@@ -30,25 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rocket.Unturned.4.9.3.0\lib\net35\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rocket.Unturned.4.9.3.0\lib\net35\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="Rocket.API, Version=2.6.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rocket.Core.2.4.8.0\lib\net35\Rocket.API.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Rocket.API">
+      <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Modules\Rocket.Unturned\Rocket.API.dll</HintPath>
     </Reference>
-    <Reference Include="Rocket.Core, Version=2.4.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rocket.Core.2.4.8.0\lib\net35\Rocket.Core.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Rocket.Core">
+      <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Modules\Rocket.Unturned\Rocket.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Rocket.Unturned, Version=4.9.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rocket.Unturned.4.9.3.0\lib\net35\Rocket.Unturned.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Rocket.Unturned">
+      <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Modules\Rocket.Unturned\Rocket.Unturned.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,18 +51,17 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rocket.Core.2.4.8.0\lib\net35\UnityEngine.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="XPForKills.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XPForKillsConfiguration.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
