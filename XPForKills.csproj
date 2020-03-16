@@ -33,23 +33,18 @@
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\Assembly-CSharp.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Rocket.API">
       <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Modules\Rocket.Unturned\Rocket.API.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Rocket.Core">
       <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Modules\Rocket.Unturned\Rocket.Core.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Rocket.Unturned">
       <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Modules\Rocket.Unturned\Rocket.Unturned.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,11 +54,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\UnityEngine.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\Workspace\Unturned\Servers\unturned\Unturned_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
