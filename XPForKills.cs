@@ -81,19 +81,21 @@ namespace PhaserArray.XPForKills
 		{
 			var limbModifier = GetLimbModifier(limb);
 			var killReward = (int)(Config.KillXP * limbModifier);
-			if (killReward != 0)
-			{
-				var realXP = ChangeExperience(murderer, killReward);
-				UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, realXP));
-			}
+
+			if (killReward == 0) return;
+			var realXPDelta = ChangeExperience(murderer, killReward);
+
+			if (!Config.DisableMessages) return;
+			UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, realXPDelta));
 		}
 
 		private void ApplyPenalty(UnturnedPlayer player, int experienceDelta, string chatMessage)
 		{
 			if (experienceDelta == 0) return;
+			var realXPDelta = ChangeExperience(player, experienceDelta);
 
-			var realXP = ChangeExperience(player, experienceDelta);
-			UnturnedChat.Say(player, string.Format(chatMessage, realXP));
+			if (!Config.DisableMessages) return;
+			UnturnedChat.Say(player, string.Format(chatMessage, realXPDelta));
 		}
 
 		// Returns the change that was actually made.
