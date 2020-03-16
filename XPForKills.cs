@@ -36,26 +36,37 @@ namespace PhaserArray.XPForKills
 				if (player.CSteamID != murdererID)
 				{
 					var murderer = UnturnedPlayer.FromCSteamID(murdererID);
-					// Murderer exists (doesn't exist in cases like bleeding and explosions)
-					if (murderer.Player != null)
-					{
-						// Teamkilling
-						if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
-						{
-							TeamkillPenalty(murderer);
-						}
-						// Killed by Player
-						else
-						{
-							KillReward(murderer, player, limb);
-							DeathPenalty(player);
-						}
-					}
-					// Killed w/o Murderer
-					else
-					{
-						DeathPenalty(player);
-					}
+                    // Murderer exists (doesn't exist in cases like bleeding and explosions)
+                    if (murderer.Player != null)
+                    {
+                        // Teamkilling
+                        if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
+                        {
+                            TeamkillPenalty(murderer);
+                        }
+                        // Killed by Player
+                        else
+                        {
+                            KillReward(murderer, player, limb);
+                            DeathPenalty(player);
+                        }
+                    }
+                    // Killed w/o Murderer
+                    else if (deathCause == EDeathCause.ZOMBIE || deathCause == EDeathCause.SPIT || deathCause == EDeathCause.ACID || deathCause == EDeathCause.SPARK || deathCause == EDeathCause.BURNER || deathCause == EDeathCause.BOULDER) {
+                        ZombiePenalty(player);
+                    }
+                    else if (deathCause == EDeathCause.BREATH)
+                    {
+                        BreathPlay(player);
+                    }
+                    else if (deathCause == EDeathCause.BURNING)
+                    {
+                        FirePenalty(player);
+                    }
+                    else
+                    {
+                        DeathPenalty(player);
+                    }
 				}
 				// Suicide
 				else
@@ -76,11 +87,38 @@ namespace PhaserArray.XPForKills
 			}
 		}
 
-		// TODO: The penalty functions are very similar to each other,
-		// I should try to collapse them into a single function in the
-		// future.
+        // TODO: The penalty functions are very similar to each other,
+        // I should try to collapse them into a single function in the
+        // future.
+        // lmao i have no idea what phaser did lololoolollol
+        private void FirePenalty(UnturnedPlayer player)
+        {
+            if (Config.FireXP != 0)
+            {
+                var realXP = ChangeExperience(player, Config.FireXP);
+                UnturnedChat.Say(player, Instance.Translate("experience_fire_penalty", -realXP));
+            }
+        }
 
-		private void DeathPenalty(UnturnedPlayer player)
+        private void BreathPlay(UnturnedPlayer player)
+        {
+            if (Config.DrownXP != 0)
+            {
+                var realXP = ChangeExperience(player, Config.DrownXP);
+                UnturnedChat.Say(player, Instance.Translate("experience_drown_penalty", -realXP));
+            }
+        }
+
+        private void ZombiePenalty(UnturnedPlayer player)
+        {
+            if (Config.ZombieXP != 0)
+            {
+                var realXP = ChangeExperience(player, Config.ZombieXP);
+                UnturnedChat.Say(player, Instance.Translate("experience_zombie_penalty", -realXP));
+            }
+        }
+
+        private void DeathPenalty(UnturnedPlayer player)
 		{
 			if (Config.DeathXP != 0)
 			{
@@ -168,8 +206,10 @@ namespace PhaserArray.XPForKills
 					{"experience_kill_reward", "You killed {0} and gained {1} experience!"},
 					{"experience_death_penalty", "You died and lost {0} experience!"},
 					{"experience_suicide_penalty", "You killed yourself and lost {0} experience!"},
-					{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"}
-				};
+					{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"},
+                    {"experience_drown_penalty", "You breathed water and lost {0} experience!"},
+                    {"experience_fire_penalty", "You got roasted and lost {0} experience!"},
+                };
 			}
 		}
 	}

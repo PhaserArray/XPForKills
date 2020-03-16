@@ -1,7 +1,11 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+<<<<<<< master
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+=======
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
+>>>>>>> master
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPForKills", "XPForKills.csproj", "{25B40FB7-6269-4EFE-9EE2-6A2647A6D87F}"
 EndProject
@@ -20,6 +24,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+<<<<<<< master
+		SolutionGuid = {EBA9D9AC-53DA-45F1-A179-044606E442A5}
+=======
 		SolutionGuid = {A6C4C626-4F09-4FCA-B97B-8CB6E5C2001D}
+>>>>>>> master
 	EndGlobalSection
 EndGlobal
