@@ -41,37 +41,38 @@ namespace PhaserArray.XPForKills
                     {
                         // Teamkilling
                         if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
-                        {
-                            TeamkillPenalty(murderer);
-                        }
+						{
+							ApplyPenalty(player, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
+						}
                         // Killed by Player
                         else
                         {
                             KillReward(murderer, player, limb);
-                            DeathPenalty(player);
-                        }
+                            ApplyPenalty(player, Config.DeathXP, Instance.Translate("experience_death_penalty"));
+						}
                     }
                     // Killed w/o Murderer
-                    else if (deathCause == EDeathCause.ZOMBIE || deathCause == EDeathCause.SPIT || deathCause == EDeathCause.ACID || deathCause == EDeathCause.SPARK || deathCause == EDeathCause.BURNER || deathCause == EDeathCause.BOULDER) {
-                        ZombiePenalty(player);
-                    }
+                    else if (deathCause == EDeathCause.ZOMBIE || deathCause == EDeathCause.SPIT || deathCause == EDeathCause.ACID || deathCause == EDeathCause.SPARK || deathCause == EDeathCause.BURNER || deathCause == EDeathCause.BOULDER)
+					{
+						ApplyPenalty(player, Config.ZombieXP, Instance.Translate("experience_breath_penalty"));
+					}
                     else if (deathCause == EDeathCause.BREATH)
-                    {
-                        BreathPlay(player);
-                    }
+					{
+						ApplyPenalty(player, Config.BreathXP, Instance.Translate("experience_breath_penalty"));
+					}
                     else if (deathCause == EDeathCause.BURNING)
-                    {
-                        FirePenalty(player);
-                    }
+					{
+						ApplyPenalty(player, Config.FireXP, Instance.Translate("experience_fire_penalty"));
+					}
                     else
-                    {
-                        DeathPenalty(player);
-                    }
+					{
+						ApplyPenalty(player, Config.DeathXP, Instance.Translate("experience_death_penalty"));
+					}
 				}
 				// Suicide
 				else
 				{
-					SuicidePenalty(player);
+					ApplyPenalty(player, Config.SuicideXP, Instance.Translate("experience_teamkill_penalty"));
 				}
 			}
 		}
@@ -87,62 +88,12 @@ namespace PhaserArray.XPForKills
 			}
 		}
 
-        // TODO: The penalty functions are very similar to each other,
-        // I should try to collapse them into a single function in the
-        // future.
-        // lmao i have no idea what phaser did lololoolollol
-        private void FirePenalty(UnturnedPlayer player)
-        {
-            if (Config.FireXP != 0)
-            {
-                var realXP = ChangeExperience(player, Config.FireXP);
-                UnturnedChat.Say(player, Instance.Translate("experience_fire_penalty", -realXP));
-            }
-        }
-
-        private void BreathPlay(UnturnedPlayer player)
-        {
-            if (Config.DrownXP != 0)
-            {
-                var realXP = ChangeExperience(player, Config.DrownXP);
-                UnturnedChat.Say(player, Instance.Translate("experience_drown_penalty", -realXP));
-            }
-        }
-
-        private void ZombiePenalty(UnturnedPlayer player)
-        {
-            if (Config.ZombieXP != 0)
-            {
-                var realXP = ChangeExperience(player, Config.ZombieXP);
-                UnturnedChat.Say(player, Instance.Translate("experience_zombie_penalty", -realXP));
-            }
-        }
-
-        private void DeathPenalty(UnturnedPlayer player)
+		private void ApplyPenalty(UnturnedPlayer player, int experienceDelta, string chatMessage)
 		{
-			if (Config.DeathXP != 0)
-			{
-				var realXP = ChangeExperience(player, Config.DeathXP);
-				UnturnedChat.Say(player, Instance.Translate("experience_death_penalty", -realXP));
-			}
-		}
+			if (experienceDelta == 0) return;
 
-		private void SuicidePenalty(UnturnedPlayer player)
-		{
-			if (Config.SuicideXP != 0)
-			{
-				var realXP = ChangeExperience(player, Config.SuicideXP);
-				UnturnedChat.Say(player, Instance.Translate("experience_suicide_penalty", -realXP));
-			}
-		}
-
-		private void TeamkillPenalty(UnturnedPlayer player)
-		{
-			if (Config.TeamkillXP != 0)
-			{
-				var realXP = ChangeExperience(player, Config.TeamkillXP);
-				UnturnedChat.Say(player, Instance.Translate("experience_teamkill_penalty", -realXP));
-			}
+			var realXP = ChangeExperience(player, experienceDelta);
+			UnturnedChat.Say(player, string.Format(chatMessage, realXP));
 		}
 
 		// Returns the change that was actually made.
@@ -207,9 +158,10 @@ namespace PhaserArray.XPForKills
 					{"experience_death_penalty", "You died and lost {0} experience!"},
 					{"experience_suicide_penalty", "You killed yourself and lost {0} experience!"},
 					{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"},
-                    {"experience_drown_penalty", "You breathed water and lost {0} experience!"},
+                    {"experience_breath_penalty", "You lost your breath and {0} experience!"},
                     {"experience_fire_penalty", "You got roasted and lost {0} experience!"},
-                };
+                    {"experience_zombie_penalty", "A zombie stole {0} experience from your body!"},
+				};
 			}
 		}
 	}
