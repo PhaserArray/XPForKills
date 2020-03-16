@@ -10,8 +10,8 @@ namespace PhaserArray.XPForKills
 {
 	public class XPForKills : RocketPlugin<XPForKillsConfiguration>
 	{
-		private static XPForKills Instance;
-		private static XPForKillsConfiguration Config;
+		public static XPForKills Instance;
+		public static XPForKillsConfiguration Config;
 
 		protected override void Load()
 		{
@@ -30,50 +30,57 @@ namespace PhaserArray.XPForKills
 		public void OnPlayerDeath(UnturnedPlayer player, EDeathCause deathCause, ELimb limb, Steamworks.CSteamID murdererID)
 		{
 			// From observations, ID is only invalid if the player was killed by an admin command.
-			if (murdererID.IsValid())
+			if (!murdererID.IsValid()) return;
+
+			// Killed
+			if (player.CSteamID != murdererID)
 			{
-				// Killed
-				if (player.CSteamID != murdererID)
+				var murderer = UnturnedPlayer.FromCSteamID(murdererID);
+				// Murderer exists (doesn't exist in cases like bleeding and explosions)
+				if (murderer.Player != null)
 				{
-					var murderer = UnturnedPlayer.FromCSteamID(murdererID);
-                    // Murderer exists (doesn't exist in cases like bleeding and explosions)
-                    if (murderer.Player != null)
-                    {
-                        // Teamkilling
-                        if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
-						{
-							ApplyPenalty(player, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
-						}
-                        // Killed by Player
-                        else
-                        {
-                            KillReward(murderer, player, limb);
-                            ApplyPenalty(player, Config.DeathXP, Instance.Translate("experience_death_penalty"));
-						}
-                    }
-                    // Killed w/o Murderer
-                    else if (deathCause == EDeathCause.ZOMBIE || deathCause == EDeathCause.SPIT || deathCause == EDeathCause.ACID || deathCause == EDeathCause.SPARK || deathCause == EDeathCause.BURNER || deathCause == EDeathCause.BOULDER)
+					// Teamkilling
+					if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
 					{
-						ApplyPenalty(player, Config.ZombieXP, Instance.Translate("experience_breath_penalty"));
+						ApplyPenalty(player, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
 					}
-                    else if (deathCause == EDeathCause.BREATH)
+					// Killed by Player
+					else
 					{
-						ApplyPenalty(player, Config.BreathXP, Instance.Translate("experience_breath_penalty"));
-					}
-                    else if (deathCause == EDeathCause.BURNING)
-					{
-						ApplyPenalty(player, Config.FireXP, Instance.Translate("experience_fire_penalty"));
-					}
-                    else
-					{
+						KillReward(murderer, player, limb);
 						ApplyPenalty(player, Config.DeathXP, Instance.Translate("experience_death_penalty"));
 					}
 				}
-				// Suicide
-				else
+				// ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+				else switch (deathCause)
 				{
-					ApplyPenalty(player, Config.SuicideXP, Instance.Translate("experience_teamkill_penalty"));
+					// Killed by a zombie
+					case EDeathCause.ZOMBIE:
+					case EDeathCause.SPIT:
+					case EDeathCause.ACID:
+					case EDeathCause.SPARK:
+					case EDeathCause.BURNER:
+					case EDeathCause.BOULDER:
+						ApplyPenalty(player, Config.ZombieXP, Instance.Translate("experience_zombie_penalty"));
+						break;
+					// Killed by suffocation (either high altitude or under water)
+					case EDeathCause.BREATH:
+						ApplyPenalty(player, Config.BreathXP, Instance.Translate("experience_breath_penalty"));
+						break;
+					// Killed by fire
+					case EDeathCause.BURNING:
+						ApplyPenalty(player, Config.FireXP, Instance.Translate("experience_fire_penalty"));
+						break;
+					// Killed by any other reason
+					default:
+						ApplyPenalty(player, Config.DeathXP, Instance.Translate("experience_death_penalty"));
+						break;
 				}
+			}
+			// Suicide
+			else
+			{
+				ApplyPenalty(player, Config.SuicideXP, Instance.Translate("experience_suicide_penalty"));
 			}
 		}
 		
@@ -95,7 +102,7 @@ namespace PhaserArray.XPForKills
 			var realXPDelta = ChangeExperience(player, experienceDelta);
 
 			if (!Config.DisableMessages) return;
-			UnturnedChat.Say(player, string.Format(chatMessage, realXPDelta));
+			UnturnedChat.Say(player, string.Format(chatMessage, -realXPDelta));
 		}
 
 		// Returns the change that was actually made.
@@ -105,17 +112,13 @@ namespace PhaserArray.XPForKills
 			// with larger number (mostly in the hundreds of
 			// millions or even billions), I'm gonna use this
 			// instead, hopefully it works better.
-			long exp = player.Experience + change;
+			var exp = player.Experience + change;
 			player.Experience = (exp < uint.MinValue) ? uint.MinValue : (exp > uint.MaxValue) ? uint.MaxValue : (uint)exp;
 			return (int)(change + player.Experience - exp);
 		}
 
 		public float GetLimbModifier(ELimb limb)
 		{
-			// There's probably a better way to connect the 
-			// limb to the experience modifier but this works.
-			// I'm not sure if the feet, hand, front and back 
-			// limbs are actually used.
 			switch (limb)
 			{
 				case ELimb.LEFT_FOOT:
@@ -151,20 +154,15 @@ namespace PhaserArray.XPForKills
 			}
 		}
 
-		public override TranslationList DefaultTranslations
+		public override TranslationList DefaultTranslations => new TranslationList
 		{
-			get
-			{
-				return new TranslationList(){
-					{"experience_kill_reward", "You killed {0} and gained {1} experience!"},
-					{"experience_death_penalty", "You died and lost {0} experience!"},
-					{"experience_suicide_penalty", "You killed yourself and lost {0} experience!"},
-					{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"},
-                    {"experience_breath_penalty", "You lost your breath and {0} experience!"},
-                    {"experience_fire_penalty", "You got roasted and lost {0} experience!"},
-                    {"experience_zombie_penalty", "A zombie stole {0} experience from your body!"},
-				};
-			}
-		}
+			{"experience_kill_reward", "You killed {0} and gained {1} experience!"},
+			{"experience_death_penalty", "You died and lost {0} experience!"},
+			{"experience_suicide_penalty", "You killed yourself and lost {0} experience!"},
+			{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"},
+			{"experience_breath_penalty", "You lost your breath and {0} experience!"},
+			{"experience_fire_penalty", "You got roasted and lost {0} experience!"},
+			{"experience_zombie_penalty", "A zombie stole {0} experience from your body!"},
+		};
 	}
 }

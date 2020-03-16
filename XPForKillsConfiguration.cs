@@ -20,6 +20,7 @@ namespace PhaserArray.XPForKills
         public int BreathXP;
         public int ZombieXP;
         public int FireXP;
+
 		public void LoadDefaults()
 		{
 			CheckSteamGroupTeamkill = true;
