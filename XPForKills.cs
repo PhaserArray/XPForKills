@@ -66,9 +66,7 @@ namespace PhaserArray.XPForKills
                     else
                     {
                         DeathPenalty(player);
-
                     }
-                   
 				}
 				// Suicide
 				else
@@ -77,8 +75,6 @@ namespace PhaserArray.XPForKills
 				}
 			}
 		}
-        
-
 		
 		private void KillReward(UnturnedPlayer murderer, UnturnedPlayer victim, ELimb limb)
 		{
@@ -103,6 +99,7 @@ namespace PhaserArray.XPForKills
                 UnturnedChat.Say(player, Instance.Translate("experience_fire_penalty", -realXP));
             }
         }
+
         private void BreathPlay(UnturnedPlayer player)
         {
             if (Config.DrownXP != 0)
@@ -111,6 +108,7 @@ namespace PhaserArray.XPForKills
                 UnturnedChat.Say(player, Instance.Translate("experience_drown_penalty", -realXP));
             }
         }
+
         private void ZombiePenalty(UnturnedPlayer player)
         {
             if (Config.ZombieXP != 0)
@@ -210,7 +208,7 @@ namespace PhaserArray.XPForKills
 					{"experience_suicide_penalty", "You killed yourself and lost {0} experience!"},
 					{"experience_teamkill_penalty", "You killed a teammate and lost {0} experience!"},
                     {"experience_drown_penalty", "You breathed water and lost {0} experience!"},
-                    { "experience_fire_penalty", "You got roasted and lost {0} experience!"},
+                    {"experience_fire_penalty", "You got roasted and lost {0} experience!"},
                 };
 			}
 		}
