@@ -53,9 +53,13 @@ namespace PhaserArray.XPForKills
                                 isexcluded = true;
                             }
                         }
-                        if (isexcluded == false) {
+                        if (isexcluded == false)
+                        {
                             ApplyPenalty(murderer, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
-                             }
+                        }
+                        else {
+                            ApplyPenalty(player, Config.DeathXP, Instance.Translate("experience_death_penalty"));
+                        }
                         
 
 
