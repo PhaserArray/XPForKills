@@ -43,9 +43,15 @@ namespace PhaserArray.XPForKills
 					// Teamkilling
 					if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
 					{
+						// If the murderer is not exempt from the penalty, apply it.
+						// Or if they are exempt, apply the death penalty to the victim.
 						if (!murderer.HasPermission(Config.NoTeamkillPenaltyPermission))
 						{
 							ApplyPenalty(murderer, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
+						}
+						else
+						{
+							ApplyPenalty(player, Config.DeathXP, Instance.Translate("experience_death_penalty"));
 						}
 					}
 					// Killed by Player
