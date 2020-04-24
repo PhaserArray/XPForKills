@@ -7,6 +7,7 @@ namespace PhaserArray.XPForKills
 
 		public bool CheckSteamGroupTeamkill;
 		public bool DisableMessages;
+		public string NoTeamkillPenaltyPermission;
 
 		public int KillXP;
 		public float HeadModifier;
@@ -25,6 +26,7 @@ namespace PhaserArray.XPForKills
 		{
 			CheckSteamGroupTeamkill = true;
 			DisableMessages = false;
+			NoTeamkillPenaltyPermission = "XPForKills.NoTeamkillPenalty";
 
 			KillXP = 50;
 			HeadModifier = 1.5f;
@@ -38,6 +40,6 @@ namespace PhaserArray.XPForKills
 			BreathXP = -50;
             ZombieXP = -50;
             FireXP = -50;
-        }
+		}
 	}
 }

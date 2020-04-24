@@ -1,4 +1,5 @@
-﻿using Rocket.API.Collections;
+﻿using Rocket.API;
+using Rocket.API.Collections;
 using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using Rocket.Unturned.Chat;
@@ -42,7 +43,10 @@ namespace PhaserArray.XPForKills
 					// Teamkilling
 					if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
 					{
-						ApplyPenalty(murderer, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
+						if (!murderer.HasPermission(Config.NoTeamkillPenaltyPermission))
+						{
+							ApplyPenalty(murderer, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
+						}
 					}
 					// Killed by Player
 					else
