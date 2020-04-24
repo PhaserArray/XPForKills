@@ -1,5 +1,6 @@
 ﻿using Rocket.API;
-
+using System.Collections.Generic;
+using System;
 namespace PhaserArray.XPForKills
 {
 	public class XPForKillsConfiguration : IRocketPluginConfiguration
@@ -20,7 +21,7 @@ namespace PhaserArray.XPForKills
         public int BreathXP;
         public int ZombieXP;
         public int FireXP;
-
+        public List<string> Excludedteamkillpermission = new List<string>();
 		public void LoadDefaults()
 		{
 			CheckSteamGroupTeamkill = true;
@@ -38,6 +39,8 @@ namespace PhaserArray.XPForKills
 			BreathXP = -50;
             ZombieXP = -50;
             FireXP = -50;
+            Excludedteamkillpermission.Add("axisofficer");
+            Excludedteamkillpermission.Add("alliesofficer");
         }
 	}
 }

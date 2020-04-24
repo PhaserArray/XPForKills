@@ -71,5 +71,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XPForKillsConfiguration.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assembly-CSharp-firstpass.dll" />
+    <Content Include="Assembly-CSharp.dll" />
+    <Content Include="Rocket.API.dll" />
+    <Content Include="Rocket.Core.dll" />
+    <Content Include="Rocket.Unturned.dll" />
+    <Content Include="UnityEngine.CoreModule.dll" />
+    <Content Include="UnityEngine.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

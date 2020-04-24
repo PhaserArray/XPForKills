@@ -5,6 +5,7 @@ using Rocket.Unturned.Chat;
 using Rocket.Core.Plugins;
 using Rocket.Core.Logging;
 using SDG.Unturned;
+using Rocket.API;
 
 namespace PhaserArray.XPForKills
 {
@@ -39,10 +40,26 @@ namespace PhaserArray.XPForKills
 				// Murderer exists (doesn't exist in cases like bleeding and explosions)
 				if (murderer.Player != null)
 				{
-					// Teamkilling
+
+                    // Teamkilling
+                    var murderer0 = (IRocketPlayer)murderer;
 					if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
 					{
-						ApplyPenalty(player, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
+                        // check if murder has a permisson which excludes them from teamkilling
+                        var isexcluded = false;
+                        foreach (string permission in Config.Excludedteamkillpermission)
+                            {
+                            if (murderer0.HasPermission(permission)){
+                                isexcluded = true;
+                            }
+                        }
+                        if (isexcluded == false) {
+                            ApplyPenalty(murderer, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
+                             }
+                        
+
+
+						
 					}
 					// Killed by Player
 					else
