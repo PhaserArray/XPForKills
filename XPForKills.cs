@@ -42,7 +42,7 @@ namespace PhaserArray.XPForKills
 					// Teamkilling
 					if (Config.CheckSteamGroupTeamkill && player.SteamGroupID.Equals(murderer.SteamGroupID))
 					{
-						ApplyPenalty(player, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
+						ApplyPenalty(murderer, Config.TeamkillXP, Instance.Translate("experience_teamkill_penalty"));
 					}
 					// Killed by Player
 					else
