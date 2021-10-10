@@ -6,6 +6,7 @@ using Rocket.Unturned.Chat;
 using Rocket.Core.Plugins;
 using Rocket.Core.Logging;
 using SDG.Unturned;
+using XPForKills;
 
 namespace PhaserArray.XPForKills
 {
@@ -97,11 +98,13 @@ namespace PhaserArray.XPForKills
 		private void KillReward(UnturnedPlayer murderer, UnturnedPlayer victim, ELimb limb)
 		{
 			var limbModifier = GetLimbModifier(limb);
-			var killReward = (int)(Config.KillXP * limbModifier);
-
+			var getGunModifier = Config.GunMultipliers.FirstOrDefault(m => m.Id == murderer.Player.equipment.asset.id);
+			if (getGunModifier == null) getGunModifier = 1f;
+			var killReward = (int)(Config.KillXP * limbModifier * getGunModifier);
+			
 			if (killReward == 0) return;
 			var realXPDelta = ChangeExperience(murderer, killReward);
-
+			
 			if (!Config.DisableMessages) return;
 			UnturnedChat.Say(murderer, Instance.Translate("experience_kill_reward", victim.CharacterName, realXPDelta));
 		}
