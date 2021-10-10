@@ -1,4 +1,5 @@
 ﻿using Rocket.API;
+using XPForKills;
 
 namespace PhaserArray.XPForKills
 {
@@ -18,9 +19,11 @@ namespace PhaserArray.XPForKills
 		public int TeamkillXP;
 		public int SuicideXP;
 		public int DeathXP;
-        public int BreathXP;
-        public int ZombieXP;
-        public int FireXP;
+        	public int BreathXP;
+        	public int ZombieXP;
+        	public int FireXP;
+
+		public GunMultiplier[] GunMultipliers { get; set; }
 
 		public void LoadDefaults()
 		{
@@ -38,8 +41,17 @@ namespace PhaserArray.XPForKills
 			SuicideXP = -50;
 			DeathXP = -50;
 			BreathXP = -50;
-            ZombieXP = -50;
-            FireXP = -50;
+            		ZombieXP = -50;
+            		FireXP = -50;
+
+			GunMultipliers = new GunMultiplier[]
+			{
+				new GunMultiplier()
+				{
+					Id = 363,
+					Multiplier = 0.5
+				}
+			};
 		}
 	}
 }
