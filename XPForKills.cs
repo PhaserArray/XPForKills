@@ -99,8 +99,9 @@ namespace PhaserArray.XPForKills
 		{
 			var limbModifier = GetLimbModifier(limb);
 			var getGunModifier = Config.GunMultipliers.FirstOrDefault(m => m.Id == murderer.Player.equipment.asset.id);
-			if (getGunModifier == null) getGunModifier = 1f;
-			var killReward = (int)(Config.KillXP * limbModifier * getGunModifier);
+			float GunModifier = 1f;
+			if (getGunModifier != null) GunModifier = getGunModifier.Multiplier;
+			var killReward = (int)(Config.KillXP * limbModifier * GunModifier);
 			
 			if (killReward == 0) return;
 			var realXPDelta = ChangeExperience(murderer, killReward);
