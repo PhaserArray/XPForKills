@@ -23,7 +23,7 @@ namespace PhaserArray.XPForKills
         	public int ZombieXP;
         	public int FireXP;
 
-		public GunMultiplierModel[] GunMultipliers { get; set; }
+		public GunMultiplier[] GunMultipliers { get; set; }
 
 		public void LoadDefaults()
 		{
@@ -44,9 +44,9 @@ namespace PhaserArray.XPForKills
             		ZombieXP = -50;
             		FireXP = -50;
 
-			GunMultipliers = new GunMultiplierModel[]
+			GunMultipliers = new GunMultiplier[]
 			{
-				new GunMultiplierModel()
+				new GunMultiplier()
 				{
 					Id = 363,
 					Multiplier = 0.5
